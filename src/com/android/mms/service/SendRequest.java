@@ -227,7 +227,7 @@ public class SendRequest extends MmsRequest {
             Uri insertUri = Telephony.Mms.Sent.CONTENT_URI;
             // Ensure that message is updated if the uri points to an existing message in the
             // telephpny db
-            if (Flags.messagePromotion() && "mms".equalsIgnoreCase(mPduUri.getAuthority())) {
+            if (Flags.messagePromotion() && "mms".equals(mPduUri.getAuthority())) {
                 long msgId = ContentUris.parseId(mPduUri);
                 if (msgId != -1) {
                     insertUri = ContentUris.withAppendedId(insertUri, msgId);
@@ -387,7 +387,7 @@ public class SendRequest extends MmsRequest {
             return true;
         }
         final int bytesTobeRead = mMmsConfig.getInt(SmsManager.MMS_CONFIG_MAX_MESSAGE_SIZE);
-        mPduData = mRequestManager.readPduFromContentUri(mPduUri, bytesTobeRead, mCallingUser);
+        mPduData = mRequestManager.readPduFromContentUri(mPduUri, bytesTobeRead, mCallingUser, mCreator);
         return (mPduData != null);
     }
 
